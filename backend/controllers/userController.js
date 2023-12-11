@@ -1,7 +1,13 @@
+import User from "../models/User.js";
 
-const register = (req, res) => {
-    console.log(req.body);
-    res.json({msg: "Creatin an user"})
+const register = async (req, res) => {
+    try {
+        const user = new User(req.body)
+        const userSave = await user.save()
+        res.json(userSave)
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 export {
