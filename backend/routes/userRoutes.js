@@ -2,8 +2,9 @@ import express from 'express';
 
 const router = express.Router();
 
-import { users } from '../controllers/userController.js';
+import { register } from '../controllers/userController.js';
 
-router.get('/', users)
+// Authentication, confirmation, and user registration.
+router.post('/', register); //Create a new user
 
 export default router;
