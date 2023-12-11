@@ -1,7 +1,9 @@
 
 const register = (req, res) => {
-    res.json()
+    console.log(req.body);
+    res.json({msg: "Creatin an user"})
 }
+
 export {
     register
 };
