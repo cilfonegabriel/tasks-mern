@@ -2,8 +2,8 @@ import express from 'express';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.send("Desde API/Usuarios")
-})
+import { users } from '../controllers/userController.js';
+
+router.get('/', users)
 
 export default router;
