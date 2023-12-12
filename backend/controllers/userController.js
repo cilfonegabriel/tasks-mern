@@ -22,9 +22,10 @@ const register = async (req, res) => {
 }
 
 const authenticate = async (req, res) => {
-    
+
 }
 
 export {
-    register
+    register,
+    authenticate
 };
