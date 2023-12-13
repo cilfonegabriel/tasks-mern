@@ -70,6 +70,12 @@ const confirm = async (req, res) => {
 }
 
 const forgotPassword = async (req, res) => {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if(!user) {
+        const error = new Error("Username does not exist");
+        return res.status(404).json({ msg: error.message });
+    }
 
 }
 
