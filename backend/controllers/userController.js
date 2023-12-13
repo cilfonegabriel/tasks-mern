@@ -120,11 +120,16 @@ const checkToken = async (req, res) => {
     }
  }
 
+ const profile = async (req, res) => {
+    console.log("Desde Perfil");
+ }
+
 export {
     register,
     authenticate,
     confirm,
     forgotPassword,
     checkToken,
-    newPassword
+    newPassword,
+    profile
 };
