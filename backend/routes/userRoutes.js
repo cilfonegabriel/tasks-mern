@@ -9,8 +9,7 @@ router.post('/', register); //Create a new user
 router.post('/login', authenticate);
 router.get('/confirm/:token', confirm);
 router.post("/forgotten-password", forgotPassword);
-router.get("/forgotten-password/:token", checkToken);
-router.post("/forgotten-password/:token", newPassword);
+router.route("/forgotten-password/:token").get(checkToken).post(newPassword);
 
 
 export default router;
