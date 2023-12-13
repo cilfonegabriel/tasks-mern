@@ -99,10 +99,15 @@ const checkToken = async (req, res) => {
     }
  }
 
+ const newPassword = async (req, res) => {
+
+ }
+
 export {
     register,
     authenticate,
     confirm,
     forgotPassword,
-    checkToken
+    checkToken,
+    newPassword
 };
