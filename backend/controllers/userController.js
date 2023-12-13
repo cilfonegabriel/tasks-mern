@@ -43,7 +43,7 @@ const authenticate = async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
-            token: generateJWT(),
+            token: generateJWT(user._id),
         });
     } else {
         const error = new Error("Password is incorrect");
