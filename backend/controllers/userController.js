@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import generateId from "../helpers/generatId.js";
+import generateJWT from "../helpers/generateJWT.js";
 
 const register = async (req, res) => {
     //Avoid duplicate records
