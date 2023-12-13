@@ -63,17 +63,19 @@ const confirm = async (req, res) => {
         confirmUser.confirm = true;
         confirmUser.token = "";
         await confirmUser.save();
-        res.json({ msg: "Successfully Confirmed User"});
-        
+        res.json({ msg: "Successfully Confirmed User"});   
     } catch (error) {
         console.log(error);
     }
+}
 
-    console.log(confirmUser)
+const forgotPassword = async (req, res) => {
+
 }
 
 export {
     register,
     authenticate,
-    confirm
+    confirm,
+    forgotPassword
 };
