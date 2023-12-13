@@ -85,6 +85,9 @@ const forgotPassword = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+}
+
+const checkToken = (req, res) => {
 
 }
 
@@ -92,5 +95,6 @@ export {
     register,
     authenticate,
     confirm,
-    forgotPassword
+    forgotPassword,
+    checkToken
 };
