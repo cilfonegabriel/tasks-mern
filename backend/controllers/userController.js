@@ -77,6 +77,15 @@ const forgotPassword = async (req, res) => {
         return res.status(404).json({ msg: error.message });
     }
 
+    try {
+        user.token = generateId()
+        await user.save();
+        res.json({ msg: "We have sent an email with instructions" });
+        console.log(user);
+    } catch (error) {
+        console.log(error);
+    }
+
 }
 
 export {
