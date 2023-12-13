@@ -51,7 +51,12 @@ const authenticate = async (req, res) => {
     }
 }
 
+const confirm = async (req, res) => {
+
+}
+
 export {
     register,
-    authenticate
+    authenticate,
+    confirm
 };
