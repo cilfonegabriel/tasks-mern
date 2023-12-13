@@ -92,9 +92,10 @@ const checkToken = async (req, res) => {
     const validToken = await User.findOne({ token });
 
     if(validToken) {
-        console.log("The token is valid");
+        res.json({ msg: "The token is valid and user exist"});
     } else {
-        console.log("The token isnt valid");
+        const error = new Error("Invalid token");
+        return res.status(404).json({ msg: error.message });
     }
  }
 
