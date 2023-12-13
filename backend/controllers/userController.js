@@ -87,9 +87,16 @@ const forgotPassword = async (req, res) => {
     }
 }
 
-const checkToken = (req, res) => {
+const checkToken = async (req, res) => {
+    const { token } = req.params;
+    const validToken = await User.findOne({ token });
 
-}
+    if(validToken) {
+        console.log("The token is valid");
+    } else {
+        console.log("The token isnt valid");
+    }
+ }
 
 export {
     register,
