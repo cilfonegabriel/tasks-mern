@@ -11,7 +11,7 @@ const newProject = async (req, res) => {
     project.creator = req.user._id
 
     try {
-        const warehouseProject = await project.save()
+        const warehouseProject = await project.save();
         res.json(warehouseProject);
     } catch (error) {
         console.error(error)
@@ -19,7 +19,21 @@ const newProject = async (req, res) => {
 };
 
 const getProject = async (req, res) => {
+    const { id } = req.params;
+
+    const project = await Project.findById(id);
     
+    if (!project) {
+        const error = new Error("Project not found");
+        return res.status(404).json({ msg: error.message });
+    }
+
+    if(project.creator.toString() === req.user._id.toString()) {
+        const error = new Error("Invalid action");
+        return res.status(404).json({ msg: error.message });
+    }
+    
+    res.json(project);
 };
 
 const editProject = async (req, res) => {
