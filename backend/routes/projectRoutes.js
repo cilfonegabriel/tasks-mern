@@ -8,7 +8,7 @@ import {
     addCollaborator,
     deleteCollaborator,
     getTasks,
- } from "../controllers/projectController";
+ } from "../controllers/projectController.js";
 import checkAuth from "../middleware/checkAuth.js";
 
 const router = express.Router();
