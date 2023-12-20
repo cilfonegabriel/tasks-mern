@@ -70,7 +70,9 @@ const updateTask = async (req, res) => {
 }
 
 const deleteTask = async (req, res) => {
-    
+    const { id } = req.params;
+
+    const task = await Task.findById(id).populate("project");
 }
 
 const changeStatus = async (req, res) => {
