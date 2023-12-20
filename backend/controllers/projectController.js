@@ -33,8 +33,14 @@ const getProject = async (req, res) => {
         const error = new Error("Invalid action");
         return res.status(404).json({ msg: error.message });
     }
+
+    //Get the tasks of theproject.
+    const tasks = await Task.find().where("project").equals(project._id);
     
-    res.json(project);
+    res.json ({
+        project,
+        tasks,
+    });
 };
 
 const editProject = async (req, res) => {
@@ -100,20 +106,6 @@ const deleteCollaborator = async (req, res) => {
     
 };
 
-const getTasks = async (req, res) => {
-    const { id } = req.params;
-
-    const projectExist  = await findById(id);
-
-    if(!projectExist) {
-        const error = new Error("Project not found");
-        return res.status(404).json({ msg: error.message });
-    }
-
-    const tasks = await Task.find().where("project").equals(id);
-
-    res.json(tasks);
-}
 export {
     getProjects,
     newProject,
@@ -122,5 +114,4 @@ export {
     deleteProject,
     addCollaborator,
     deleteCollaborator,
-    getTasks,
 }
