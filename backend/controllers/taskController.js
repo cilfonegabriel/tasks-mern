@@ -13,7 +13,7 @@ const addTask = async (req, res) => {
 
     if(projectExists.creator.toString() !== req.user._id.toString()){
         const error = new Error("You do not have permissions to add tasks.");
-        return res.status(404).json({ msg: error.message });
+        return res.status(403).json({ msg: error.message });
     }
 
     try {
@@ -25,7 +25,21 @@ const addTask = async (req, res) => {
 };
 
 const getTask = async (req, res) => {
-    
+    const  { id } = req.params;
+
+    const task = await Task.findById(id).populate("project");
+
+    if(!task) {
+        const error = new Error("Task not found");
+        return res.status(404).json({ msg: error.message });
+    }
+
+    if(task.project.creator.toString() !== req.user._id.toString()) {
+        const error = new Error("Invalid action.");
+        return res.status(403).json({ msg: error.message });
+    }
+
+    res.json(task);
 }
 
 const updateTask = async (req, res) => {
