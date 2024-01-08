@@ -1,11 +1,15 @@
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
 
   return (
-    <div className="App">
-      <h1>Up Tasks</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/">
+
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
