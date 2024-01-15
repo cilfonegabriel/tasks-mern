@@ -23,7 +23,7 @@ const ForgetPassword = () => {
               </div>
               <input 
                   type="submit"
-                  value="Create Account"
+                  value="Send Instructions"
                   className="bg-sky-700 mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-sky-800 transition-colors"
               />
           </form>
