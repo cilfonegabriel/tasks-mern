@@ -8,13 +8,24 @@ const Register = () => {
     const [password, setPassword] = useState('')
     const [repeatPassword, setRepeatPassword] = useState('')
 
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        if([name, email, password, repeatPassword].includes('')) {
+            console.log('All field are required');
+        }
+    }
+
     return (
         <>
         <h1 className="text-sky-600 font-black text-6xl capitalize">Create your account and manage your {""}
             <span className="text-slate-700">projects</span>
         </h1>
 
-            <form className="my-10 bg-white shadow rounded-lg p-10">
+            <form 
+                className="my-10 bg-white shadow rounded-lg p-10"
+                onSubmit={handleSubmit}
+            >
                 <div className="my-5">
                     <label 
                         className="uppercase text-gray-600 block text-xl font-bold"
