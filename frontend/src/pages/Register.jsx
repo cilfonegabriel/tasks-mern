@@ -52,7 +52,10 @@ const Register = () => {
             error: false
            });
         } catch (error) {
-            console.log(error)
+            setAlert({
+                msg:error.response.data.msg,
+                error:true
+            })
         }
     }
 
