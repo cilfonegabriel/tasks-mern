@@ -20,6 +20,27 @@ const Register = () => {
             })
             return
         }
+
+        if (password !== repeatPassword) {
+            setAlert({
+                msg:'The passwords are not the same',
+                error: true
+            })
+            return
+        }
+
+        if(password.length < 6) {
+            setAlert({
+                msg:'Password must contain more than 6 digits',
+                error: true
+            })
+            return
+        }
+        setAlert({})
+
+        //Creating the user in the API
+
+        console.log('Creating user')
     }
 
     const {msg} = alert
