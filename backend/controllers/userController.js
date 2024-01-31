@@ -61,7 +61,7 @@ const authenticate = async (req, res) => {
 }
 
 const confirm = async (req, res) => {
-    const{ token } = req.params
+    const{ token } = req.params;
     const confirmUser = await User.findOne({ token });
     if(!confirmUser) {
         const error = new Error("Invalid Token");
@@ -76,7 +76,7 @@ const confirm = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 const forgotPassword = async (req, res) => {
     const { email } = req.body;
