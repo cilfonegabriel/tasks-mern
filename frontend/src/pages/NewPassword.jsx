@@ -5,6 +5,9 @@ import Alert from "../components/Alert"
 
 const NewPassword = () => {
 
+    const [ validToken, setValidToken] = useState (false)
+    const [alert, setAlert] = useState ({})
+
     const params = useParams()
     const {token} = params
 
@@ -13,13 +16,19 @@ const NewPassword = () => {
             try {
                 //Move to an axios client
                 const { data } = await axios(`http://localhost:4000/api/users/forgotten-password/${token}`)
-                console.log(data)
+                setValidToken(true)
+
             } catch (error) {
-                console.error(error.response)
+                setAlert({
+                    msg: error.response.data.msg,
+                    error: true
+                })
             }
         }
         checkToken()
     },[])
+
+    const { msg } = alert
         
     return (
         <>
@@ -27,26 +36,30 @@ const NewPassword = () => {
             <span className="text-slate-700">projects</span>
         </h1>
 
-            <form className="my-10 bg-white shadow rounded-lg p-10">
+        {msg && <Alert alert={alert} />}
 
-                <div className="my-5">
-                    <label 
-                        className="uppercase text-gray-600 block text-xl font-bold"
-                        htmlFor="password"
-                    >New Password</label>
+            {validToken && (
+                <form className="my-10 bg-white shadow rounded-lg p-10">
+
+                    <div className="my-5">
+                        <label 
+                            className="uppercase text-gray-600 block text-xl font-bold"
+                            htmlFor="password"
+                        >New Password</label>
+                        <input 
+                            id="password"
+                            type="password" 
+                            placeholder="Write your new password"
+                            className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+                        />
+                    </div>
                     <input 
-                        id="password"
-                        type="password" 
-                        placeholder="Write your new password"
-                        className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+                        type="submit"
+                        value="Save New Password"
+                        className="bg-sky-700 mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-sky-800 transition-colors"
                     />
-                </div>
-                <input 
-                    type="submit"
-                    value="Save New Password"
-                    className="bg-sky-700 mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-sky-800 transition-colors"
-                />
-            </form>
+                </form>
+            )}
         </>
     )
 }
