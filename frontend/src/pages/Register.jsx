@@ -42,6 +42,7 @@ const Register = () => {
         //Creating the user in the API
 
         try {
+            //Move to an axios client
            const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users`, {
             name,
             email,
