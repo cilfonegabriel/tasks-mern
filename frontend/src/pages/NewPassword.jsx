@@ -5,10 +5,15 @@ import Alert from "../components/Alert"
 
 const NewPassword = () => {
 
+    const params = useParams()
+    const {token} = params
+
     useEffect(() => {
         const checkToken = async () => {
             try {
-                
+                //Move to an axios client
+                const { data } = await axios(`http://localhost:4000/api/users/forgotten-password/${token}`)
+                console.log(data)
             } catch (error) {
                 console.error(error.response)
             }
