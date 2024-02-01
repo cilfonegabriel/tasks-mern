@@ -19,6 +19,7 @@ const ForgetPassword = () => {
             return
         }
         try {
+            //Move to an axios client
             const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/forgotten-password`, {email})
 
             setAlert({

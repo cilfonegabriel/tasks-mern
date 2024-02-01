@@ -1,7 +1,7 @@
 import User from "../models/User.js";
 import generateId from "../helpers/generatId.js";
 import generateJWT from "../helpers/generateJWT.js";
-import { emailRegister } from "../helpers/email.js";
+import { emailRegister, emailForgetPassword } from "../helpers/email.js";
 
 const register = async (req, res) => {
     //Avoid duplicate records
@@ -89,6 +89,14 @@ const forgotPassword = async (req, res) => {
     try {
         user.token = generateId()
         await user.save();
+
+        //Send the email
+        emailForgetPassword({
+            email: user.email,
+            name: user.name,
+            token: user.token,
+        })
+
         res.json({ msg: "We have sent an email with instructions" });
         console.log(user);
     } catch (error) {
