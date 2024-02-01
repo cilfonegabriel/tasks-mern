@@ -1,15 +1,33 @@
 import { Link } from "react-router-dom"
 import { useState } from "react"
+import Alert from "../components/Alert"
 
 const ForgetPassword = () => {
 
     const [email, setEmail] = useState('')
+    const [alert, setAlert] = useState({})
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+
+        if(email === "" || email.length < 6) {
+            setAlert({
+                msg: "Email is required",
+                error: true
+            });
+            return
+        }
+    }
+
+    const {msg} = alert
 
   return (
     <>
       <h1 className="text-sky-600 font-black text-6xl capitalize">Recover your access and don't lose your {""}
           <span className="text-slate-700">projects</span>
       </h1>
+
+      {msg && <Alert alert={alert} />}
 
           <form 
             className="my-10 bg-white shadow rounded-lg p-10"
