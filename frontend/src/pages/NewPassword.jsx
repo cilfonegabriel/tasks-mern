@@ -30,6 +30,18 @@ const NewPassword = () => {
         checkToken()
     },[])
 
+    const handleSubmit = async e => {
+        e.preventDefault();
+
+        if(password.length < 6) {
+            setAlert({
+                msg:'The password must contain at least 6 characters',
+                error: true
+            })
+            return
+        }
+    }
+
     const { msg } = alert
         
     return (
@@ -41,7 +53,10 @@ const NewPassword = () => {
         {msg && <Alert alert={alert} />}
 
             {validToken && (
-                <form className="my-10 bg-white shadow rounded-lg p-10">
+                <form 
+                    className="my-10 bg-white shadow rounded-lg p-10"
+                    onSubmit={handleSubmit}
+                >
 
                     <div className="my-5">
                         <label 
