@@ -9,6 +9,7 @@ const NewPassword = () => {
     const [password, setPassword] = useState('')
     const [ validToken, setValidToken] = useState (false)
     const [alert, setAlert] = useState ({})
+    const [passwordModified,setPasswordModified] = useState (false)
 
     const params = useParams()
     const {token} = params
@@ -47,6 +48,7 @@ const NewPassword = () => {
                 msg: data.msg,
                 error: false
             })
+            setPasswordModified(true)
         } catch (error) {
             setAlert({
                 msg: error.response.data.msg,
@@ -91,6 +93,13 @@ const NewPassword = () => {
                         className="bg-sky-700 mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-sky-800 transition-colors"
                     />
                 </form>
+            )}
+            
+            {passwordModified && (
+                <Link
+                    className="block text-center my-5 text-slate-500 uppercase text-sm"
+                    to="/"
+                >Log in</Link>
             )}
         </>
     )
