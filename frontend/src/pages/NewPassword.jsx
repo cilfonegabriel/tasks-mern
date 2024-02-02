@@ -5,6 +5,8 @@ import Alert from "../components/Alert"
 
 const NewPassword = () => {
 
+
+    const [password, setPassword] = useState('')
     const [ validToken, setValidToken] = useState (false)
     const [alert, setAlert] = useState ({})
 
@@ -51,6 +53,8 @@ const NewPassword = () => {
                             type="password" 
                             placeholder="Write your new password"
                             className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
                         />
                     </div>
                     <input 
