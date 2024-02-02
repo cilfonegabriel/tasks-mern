@@ -1,13 +1,51 @@
-import { Link } from "react-router-dom"
+import { Link,useNavigate } from "react-router-dom"
+import { useState } from "react"
+import Alert from "../components/Alert"
+import customerAxios from "../config/customerAxios"
 
 const Login = () => {
+
+    const [email,setEmail] = useState('')
+    const [password,setPassword] = useState('')
+    const [alert,setAlert] = useState({})
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+
+        if([email, password].includes('')) {
+            setAlert({
+                msg:'All fields are required',
+                error: true
+            })
+            return
+        }
+        try {
+            const { data } = await customerAxios.post('users/login', { email, password })
+            setAlert({});
+            localStorage.setItem('token', data.token)
+        } catch (error) {
+            setAlert({
+                msg:error.response.data.msg,
+                error:true
+            })
+        }
+    }
+
+    const { msg} = alert
+
+
   return (
         <>
             <h1 className="text-sky-600 font-black text-6xl capitalize">Log in and manage your {""}
                 <span className="text-slate-700">projects</span>
             </h1>
 
-            <form className="my-10 bg-white shadow rounded-lg p-10">
+            {msg && <Alert alert={alert}/>}
+
+            <form 
+                className="my-10 bg-white shadow rounded-lg p-10"
+                onSubmit={handleSubmit}
+            >
                 <div className="my-5">
                     <label 
                         className="uppercase text-gray-600 block text-xl font-bold"
@@ -18,6 +56,8 @@ const Login = () => {
                         type="email" 
                         placeholder="Registration Email"
                         className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
                     />
                 </div>
                 <div className="my-5">
@@ -30,6 +70,8 @@ const Login = () => {
                         type="password" 
                         placeholder="Registration Password"
                         className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+                        value={password} 
+                        onChange={e => setPassword(e.target.value)}
                     />
                 </div>
 
