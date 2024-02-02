@@ -21,7 +21,8 @@ const Login = () => {
         }
         try {
             const { data } = await customerAxios.post('users/login', { email, password })
-            console.log(data)
+            setAlert({});
+            localStorage.setItem('token', data.token)
         } catch (error) {
             setAlert({
                 msg:error.response.data.msg,
