@@ -40,6 +40,19 @@ const NewPassword = () => {
             })
             return
         }
+        try {
+            const url = `http://localhost:4000/api/users//forgotten-password/${token}`
+            const { data } = await axios.post(url, { password })
+            setAlert({
+                msg: data.msg,
+                error: false
+            })
+        } catch (error) {
+            setAlert({
+                msg: error.response.data.msg,
+                error: true
+            })
+        }
     }
 
     const { msg } = alert
