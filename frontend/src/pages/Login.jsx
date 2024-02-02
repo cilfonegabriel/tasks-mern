@@ -20,9 +20,13 @@ const Login = () => {
             return
         }
         try {
-            
+            const { data } = await customerAxios.post('users/login', { email, password })
+            console.log(data)
         } catch (error) {
-            
+            setAlert({
+                msg:error.response.data.msg,
+                error:true
+            })
         }
     }
 
