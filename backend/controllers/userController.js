@@ -138,7 +138,7 @@ const checkToken = async (req, res) => {
  }
 
  const profile = async (req, res) => {
-    const { user } = req
+    const { user } = req;
 
     res.json(user)
  }
