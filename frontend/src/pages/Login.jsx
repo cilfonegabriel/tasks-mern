@@ -10,7 +10,7 @@ const Login = () => {
     const [password,setPassword] = useState('')
     const [alert,setAlert] = useState({})
 
-    const {} = useAuth();
+    const {setAuth} = useAuth();
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -26,6 +26,7 @@ const Login = () => {
             const { data } = await customerAxios.post('users/login', { email, password })
             setAlert({});
             localStorage.setItem('token', data.token)
+            setAuth(data)
         } catch (error) {
             setAlert({
                 msg:error.response.data.msg,
