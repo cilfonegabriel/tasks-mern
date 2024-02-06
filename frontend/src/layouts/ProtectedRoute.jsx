@@ -12,9 +12,9 @@ const ProtectedRoute = () => {
     return (
         <>
             {auth._id ? (
-                <div>
+                <div className="bg-gray-100">
                     <Header/>
-                    <div>
+                    <div className="md:flex md:min-h-screen">
                         <Sidebar/>
                         <main>
                             <Outlet />
