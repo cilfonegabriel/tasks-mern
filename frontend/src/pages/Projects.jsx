@@ -2,9 +2,12 @@ import React from 'react'
 
 const Projects = () => {
   return (
-    <div>
-      Proyectos
-    </div>
+    <>
+      <h1 className='text-4xl font-black'>Projects</h1>
+      <div>
+        
+      </div>
+    </>
   )
 }
 
