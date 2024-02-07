@@ -16,13 +16,18 @@ const ProjectsProvider = ({children}) => {
         }, 5000);
     }
 
+    const submitProject = async project => {
+        console.log(project);
+    }
+
 
     return(
         <ProjectsContext.Provider
             value={{
                 projects,
                 showAlert,
-                alert
+                alert,
+                submitProject
             }}
         >{children}
         </ProjectsContext.Provider>

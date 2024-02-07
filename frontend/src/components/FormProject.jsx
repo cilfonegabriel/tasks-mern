@@ -9,7 +9,7 @@ const FormProject = () => {
     const [deliverDate, setDeliverDate] =useState('')
     const [customer, setCustomer] =useState('')
 
-    const {showAlert, alert} = useProjects()
+    const {showAlert, alert, submitProject} = useProjects()
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -21,6 +21,7 @@ const FormProject = () => {
             })
             return
         }
+        submitProject({name, description, deliverDate, customer})
     }
 
     const { msg } = alert
