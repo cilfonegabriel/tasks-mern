@@ -60,6 +60,24 @@ const FormProject = () => {
                     onChange={e => setDeliverDate(e.target.value)}
                 />
             </div>
+
+            <div className="mb-5">
+                <label
+                    className='text-gray-700 uppercase font-bold text-sm'
+                    htmlFor='customer'
+                >
+                    Name Customer
+                </label>
+
+                <input
+                    id='customer'
+                    type='text'
+                    className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                    placeholder='Name of the customer'
+                    value={customer}
+                    onChange={e => setCustomer(e.target.value)}
+                />
+            </div>
         </form>
     )
 }
