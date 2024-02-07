@@ -1,0 +1,31 @@
+import { useState } from "react"
+
+const FormProject = () => {
+
+    const [name, setName] =useState('')
+
+    return (
+        <form className='bg-white py-10 px-5 md:w-1/2 rounded-lg shadow'>
+        <div>
+            <label
+                className='text-gray-700 uppercase font-bold text-sm'
+                htmlFor='name'
+            >
+                Name Project
+            </label>
+
+            <input
+            id='name'
+                type='text'
+                className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                placeholder='Name of the Project'
+                value={name}
+                onChange={e => setName(e.target.value)}
+            />
+            
+        </div>
+        </form>
+    )
+}
+
+export default FormProject
