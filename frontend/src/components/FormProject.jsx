@@ -78,6 +78,12 @@ const FormProject = () => {
                     onChange={e => setCustomer(e.target.value)}
                 />
             </div>
+
+            <input 
+                type="submit"
+                value="Create Project"
+                className="bg-sky-600 w-full p-3 uppercase font-bold text-white rounded cursor-pointer hover:bg-sky-700 transition-colors"
+            />
         </form>
     )
 }
