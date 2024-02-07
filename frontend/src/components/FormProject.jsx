@@ -3,6 +3,9 @@ import { useState } from "react"
 const FormProject = () => {
 
     const [name, setName] =useState('')
+    const [description, setDescription] =useState('')
+    const [deliverDate, setDeliverDate] =useState('')
+    const [customer, setCustomer] =useState('')
 
     return (
         <form className='bg-white py-10 px-5 md:w-1/2 rounded-lg shadow'>
