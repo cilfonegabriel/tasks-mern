@@ -42,7 +42,23 @@ const FormProject = () => {
                     value={description}
                     onChange={e => setDescription(e.target.value)}
                 />
-                
+            </div>
+
+            <div className="mb-5">
+                <label
+                    className='text-gray-700 uppercase font-bold text-sm'
+                    htmlFor='deliver-date'
+                >
+                    Deadline
+                </label>
+
+                <input
+                    id='deliver-date'
+                    type='date'
+                    className='border w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                    value={deliverDate}
+                    onChange={e => setDeliverDate(e.target.value)}
+                />
             </div>
         </form>
     )
