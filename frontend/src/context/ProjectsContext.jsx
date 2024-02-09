@@ -53,7 +53,7 @@ const ProjectsProvider = ({children}) => {
             }
 
             const { data } = await customerAxios.post('/projects', project, config)
-            console.log(data)
+           setProjects([...projects,data])
 
             setAlert({
                 msg:'Project created successfully',
