@@ -7,7 +7,10 @@ const ProjectsContext = createContext()
 const ProjectsProvider = ({children}) => {
 
     const[projects, setProjects] = useState([]);
-    const[alert, setAlert] = useState([]);
+    const[alert, setAlert] = useState({});
+    const [project, setProject] = useState({});
+    const [loading, setLoading] = useState(false);
+
 
     const navigate = useNavigate();
 
@@ -70,6 +73,7 @@ const ProjectsProvider = ({children}) => {
     }
 
     const getProject = async id => {
+        setLoading(true);
         try {
             const token = localStorage.getItem('token');
             if(!token) return
@@ -82,9 +86,11 @@ const ProjectsProvider = ({children}) => {
             }
 
             const { data } = await customerAxios(`/projects/${id}`, config)
-            console.log(data)
+            setProject(data)
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -95,7 +101,9 @@ const ProjectsProvider = ({children}) => {
                 showAlert,
                 alert,
                 submitProject,
-                getProject
+                getProject,
+                project,
+                loading
             }}
         >{children}
         </ProjectsContext.Provider>

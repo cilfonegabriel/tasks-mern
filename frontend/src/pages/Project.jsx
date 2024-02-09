@@ -6,17 +6,19 @@ const Project = () => {
 
     const params = useParams()
 
-    const { getProject } = useProjects()
+    const { getProject, project, loading  } = useProjects()
 
     useEffect (() => {
         getProject(params.id)
     },[])
     
-
+    const { name } = project
     return (
-        <div>
-            sdaasd
-        </div>
+        loading ? '' : (
+            <div>
+                <h1 className="font-black text-4xl">{name}</h1>
+            </div>
+        )
     )
 }
 
