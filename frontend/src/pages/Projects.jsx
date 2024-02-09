@@ -13,7 +13,8 @@ const Projects = () => {
         {projects.length ? 
         projects.map(project => (
           <PreviewProject
-            
+            key={projects._id}
+            project={project}
           />
         ))
         : <p className=' text-center text-gray-600 uppercase p-5'>No hay proyect</p>}
