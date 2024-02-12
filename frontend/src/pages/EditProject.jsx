@@ -1,10 +1,29 @@
-import React from 'react'
+import useProjects from "../hooks/useProjects"
+import { useEffect } from "react"
+import { useParams } from "react-router-dom"
+import FormProject from "../components/FormProject"
 
 const EditProject = () => {
+
+    const params = useParams()
+
+    const { getProject, project, loading  } = useProjects()
+
+    useEffect (() => {
+        getProject(params.id)
+    },[])
+    
+    const { name } = project
+
+    if (loading) return 'Loading...'
+
   return (
-    <div>
-      
-    </div>
+    <>
+        <h1 className="font-black text-4xl">Edit Project: {name}</h1>
+        <div className='mt-10 flex justify-center'>
+            <FormProject/>
+        </div>
+    </>
   )
 }
 

@@ -13,8 +13,9 @@ const Project = () => {
     },[])
     
     const { name } = project
+
+    if (loading) return 'Loading...'
     return (
-        loading ? '...' : (
             <div className="flex justify-between">
                 <h1 className="font-black text-4xl">{name}</h1>
                 <div className="flex items-center gap-2 text-gray-400 hover:text-black" >
@@ -27,7 +28,6 @@ const Project = () => {
                     >Edit</Link>
                 </div>
             </div>
-        )
     )
 }
 
