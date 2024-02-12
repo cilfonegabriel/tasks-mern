@@ -4,7 +4,7 @@ import useProjects from "../hooks/useProjects"
 import Alert from "./Alert"
 
 const FormProject = () => {
-
+    const [id, setId] =useState(null)
     const [name, setName] =useState('')
     const [description, setDescription] =useState('')
     const [deliverDate, setDeliverDate] =useState('')
@@ -16,6 +16,7 @@ const FormProject = () => {
 
     useEffect(() => {
         if(params.id){
+            setId(project._id)
             setName(project.name)
             setDescription(project.description)
             setDeliverDate(project.deliverDate?.split('T')[0])
@@ -33,8 +34,9 @@ const FormProject = () => {
             })
             return
         }
-        await submitProject({name, description, deliverDate, customer})
+        await submitProject({id, name, description, deliverDate, customer})
 
+        setId(null)
         setName('')
         setDescription('')
         setDeliverDate('')
@@ -121,7 +123,7 @@ const FormProject = () => {
 
             <input 
                 type="submit"
-                value="Create Project"
+                value={id ? "Update Project" : "Create Project"}
                 className="bg-sky-600 w-full p-3 uppercase font-bold text-white rounded cursor-pointer hover:bg-sky-700 transition-colors"
             />
         </form>
