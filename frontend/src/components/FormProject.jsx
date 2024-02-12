@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect} from "react"
+import { useParams } from "react-router-dom"
 import useProjects from "../hooks/useProjects"
 import Alert from "./Alert"
 
@@ -9,7 +10,18 @@ const FormProject = () => {
     const [deliverDate, setDeliverDate] =useState('')
     const [customer, setCustomer] =useState('')
 
-    const {showAlert, alert, submitProject} = useProjects()
+    const params = useParams()
+    
+    const {showAlert, alert, submitProject, project} = useProjects()
+
+    useEffect(() => {
+        if(params.id){
+            setName(project.name)
+            setDescription(project.description)
+            setDeliverDate(project.deliverDate?.split('T')[0])
+            setCustomer(project.customer)
+        }
+    }, [params])
 
     const handleSubmit = async e => {
         e.preventDefault();
