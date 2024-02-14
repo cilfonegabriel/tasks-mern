@@ -135,7 +135,25 @@ const ProjectsProvider = ({children}) => {
     }
 
     const deleteProject = async id => {
-        console.log('deleting project', id)
+        try {
+            const token = localStorage.getItem('token');
+            if(!token) return
+
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization : `Bearer ${token}`,
+                }
+            }
+
+            const { data } = await customerAxios.delete(`/projects/${id}`, config)
+            setAlert({
+                msg: data.msg,
+                error: false,
+            })
+        } catch (error) {
+            console.log("error")
+        }
     }
 
     return(
