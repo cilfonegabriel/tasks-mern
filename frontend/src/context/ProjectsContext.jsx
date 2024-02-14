@@ -147,10 +147,19 @@ const ProjectsProvider = ({children}) => {
             }
 
             const { data } = await customerAxios.delete(`/projects/${id}`, config)
+
+            const projectsUpdate = projects.filter(projectState => projectState._id !== id)
+
+            setProjects(projectsUpdate)
             setAlert({
                 msg: data.msg,
                 error: false,
             })
+
+            setTimeout(() => {
+                setAlert({})
+                navigate('/projects')
+            }, 2000);
         } catch (error) {
             console.log("error")
         }
