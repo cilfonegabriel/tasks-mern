@@ -7,11 +7,17 @@ const EditProject = () => {
 
     const params = useParams()
 
-    const { getProject, project, loading  } = useProjects()
+    const { getProject, project, loading, deleteProject  } = useProjects()
 
     useEffect (() => {
         getProject(params.id)
     },[])
+
+    const handleClick = () => {
+      if (confirm ("Do you want to delete this project?") ) {
+        deleteProject(params.id)
+      } 
+    }
     
     const { name } = project
 
