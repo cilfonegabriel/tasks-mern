@@ -2,6 +2,8 @@ import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import useProjects from '../hooks/useProjects'
 
+const PRIORITY = ["Low", "Mid", "High"];
+
 
 const ModalFormTask = () => {
 
@@ -68,14 +70,63 @@ const ModalFormTask = () => {
 
                                     <form className='my-10'>
                                         <div className='mb-5'>
-                                            <label>
-
+                                            <label
+                                                className='text-gray-900 uppercase font-bold text-sm'
+                                                htmlFor='name'
+                                            >
+                                                Name Task
                                             </label>
 
                                             <input 
-                                                
+                                                type='text'
+                                                id='name'
+                                                placeholder='Name of the Task'
+                                                className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                                                value={name}
+                                                onChange={e => setName(e.target.value)}
                                             />
                                         </div>
+                                        
+                                        <div className='mb-5'>
+                                            <label
+                                                className='text-gray-900 uppercase font-bold text-sm'
+                                                htmlFor='description'
+                                            >
+                                                Description Task
+                                            </label>
+
+                                            <textarea 
+                                                id='description'
+                                                placeholder='Description of the Task'
+                                                className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                                                value={description}
+                                                onChange={e => setDescription(e.target.value)}
+                                            />
+                                        </div>
+
+                                        <div className='mb-5'>
+                                            <label
+                                                className='text-gray-900 uppercase font-bold text-sm'
+                                                htmlFor='priority'
+                                            >
+                                                Priority
+                                            </label>
+
+                                            <select 
+                                                id='priority'
+                                                className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                                                value={priority}
+                                                onChange={e => setPriority(e.target.value)}
+                                            >
+                                                {PRIORITY.map(option => (<option key={option}>{option}</option>))}
+                                            </select>
+                                        </div>
+
+                                        <input 
+                                            type='submit'
+                                            className='bg-sky-600 hover:bg-sky-700 w-full p-3 text-sm text-white uppercase font-bold cursor-pointer transition-colors rounded'
+                                            value="Create Task"
+                                        />
 
                                     </form>
 
