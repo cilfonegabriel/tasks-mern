@@ -6,6 +6,10 @@ import useProjects from '../hooks/useProjects'
 const ModalFormTask = () => {
 
     const{ modalFormTask, handleModalTask } = useProjects();
+
+    const [name, setName] =useState('')
+    const [description, setDescription] =useState('')
+    const [priority, setPriority] =useState('')
  
     return (
         <Transition.Root show={ modalFormTask } as={Fragment}>
@@ -59,8 +63,21 @@ const ModalFormTask = () => {
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                     <Dialog.Title as="h3" className="text-lg leading-6 font-bold text-gray-900">
-                                        
+                                        Create Task
                                     </Dialog.Title>
+
+                                    <form className='my-10'>
+                                        <div className='mb-5'>
+                                            <label>
+
+                                            </label>
+
+                                            <input 
+                                                
+                                            />
+                                        </div>
+
+                                    </form>
 
                                 </div>
                             </div>
