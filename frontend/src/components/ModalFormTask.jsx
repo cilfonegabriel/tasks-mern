@@ -125,6 +125,24 @@ const ModalFormTask = () => {
                                             />
                                         </div>
 
+                                        
+                                        <div className='mb-5'>
+                                            <label
+                                                className='text-gray-900 uppercase font-bold text-sm'
+                                                htmlFor='deliver-date'
+                                            >
+                                                Deliver Date
+                                            </label>
+
+                                            <input 
+                                                type='date'
+                                                id='deliver-date'
+                                                className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
+                                                value={name}
+                                                onChange={e => setName(e.target.value)}
+                                            />
+                                        </div>
+
                                         <div className='mb-5'>
                                             <label
                                                 className='text-gray-900 uppercase font-bold text-sm'
