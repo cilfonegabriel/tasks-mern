@@ -8,7 +8,7 @@ const PRIORITY = ["Low", "Mid", "High"];
 
 const ModalFormTask = () => {
 
-    const{ modalFormTask, handleModalTask, showAlert, alert } = useProjects();
+    const{ modalFormTask, handleModalTask, showAlert, alert, submitTask } = useProjects();
 
     const [name, setName] =useState('')
     const [description, setDescription] =useState('')
@@ -24,6 +24,7 @@ const ModalFormTask = () => {
             })
             return
         }
+        submitTask({name, description, priority})
     }
 
     const { msg } = alert
