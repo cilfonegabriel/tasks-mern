@@ -139,6 +139,7 @@ const ModalFormTask = () => {
                                                 value={priority}
                                                 onChange={e => setPriority(e.target.value)}
                                             >
+                                                <option value="">-- Select --</option>
                                                 {PRIORITY.map(option => (<option key={option}>{option}</option>))}
                                             </select>
                                         </div>
