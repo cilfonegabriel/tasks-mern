@@ -12,19 +12,20 @@ const ModalFormTask = () => {
 
     const [name, setName] =useState('')
     const [description, setDescription] =useState('')
+    const [deliverDate, setDeliverDate] = useState('')
     const [priority, setPriority] =useState('')
 
     const handleSubmit = e => {
         e.preventDefault();
 
-        if([name, description, priority].includes('')){
+        if([name, description,deliverDate, priority].includes('')){
             showAlert({
                 msg: 'All fields are required',
                 error:true
             })
             return
         }
-        submitTask({name, description, priority})
+        submitTask({name, description, deliverDate, priority})
     }
 
     const { msg } = alert
@@ -138,8 +139,8 @@ const ModalFormTask = () => {
                                                 type='date'
                                                 id='deliver-date'
                                                 className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
-                                                value={name}
-                                                onChange={e => setName(e.target.value)}
+                                                value={deliverDate}
+                                                onChange={e => setDeliverDate(e.target.value)}
                                             />
                                         </div>
 
