@@ -170,6 +170,25 @@ const ProjectsProvider = ({children}) => {
         setModalFormTask(!modalFormTask);
     }
 
+    const submitTask = async task => {
+        try {
+            const token = localStorage.getItem('token');
+            if(!token) return
+
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization : `Bearer ${token}`,
+                }
+            }
+
+            const { data } = await customerAxios.post('/tasks', task, config);
+            console.log(data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     return(
         <ProjectsContext.Provider
             value={{
@@ -182,7 +201,8 @@ const ProjectsProvider = ({children}) => {
                 loading,
                 deleteProject,
                 modalFormTask,
-                handleModalTask
+                handleModalTask,
+                submitTask
             }}
         >{children}
         </ProjectsContext.Provider>
