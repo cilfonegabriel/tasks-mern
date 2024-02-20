@@ -46,6 +46,13 @@ const Project = () => {
 
             New task</button>     
 
+            <p className="font-bold text-xl mt-10">Tasks of the Project</p>
+
+            <div className="bg-white shadow mt-10 rounded-lg">
+                {project.tasks?.length ? "Si hay tareas" :
+                <p className="text-center my-5 p-10">There arent tasks in this Project</p>}
+            </div>
+
             <ModalFormTask 
                 modal = {modal}
                 setModal={setModal}
