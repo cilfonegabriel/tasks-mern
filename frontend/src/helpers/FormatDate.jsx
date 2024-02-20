@@ -1,5 +1,4 @@
 export const formatDate = date => {
-    console.log(date)
 
     const newDate = new Date(date.split('T')[0].split('-'))
 

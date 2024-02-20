@@ -19,7 +19,7 @@ const ModalFormTask = () => {
     const params = useParams()
 
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
 
         if([name, description,deliverDate, priority].includes('')){
@@ -29,9 +29,16 @@ const ModalFormTask = () => {
             })
             return
         }
-        submitTask({name, description, deliverDate, priority, project: params.id})
+        await submitTask({name, description, deliverDate, priority, project: params.id})
+        
+        setName('')
+        setDescription('')
+        setDeliverDate('')
+        setPriority('')
     }
 
+
+    
     const { msg } = alert
  
     return (
