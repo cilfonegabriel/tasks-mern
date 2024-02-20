@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom"
 import useProjects from "../hooks/useProjects"
 import ModalFormTask from "../components/ModalFormTask.jsx"
+import Task from "../components/Task.jsx"
 
 const Project = () => {
 
@@ -49,7 +50,13 @@ const Project = () => {
             <p className="font-bold text-xl mt-10">Tasks of the Project</p>
 
             <div className="bg-white shadow mt-10 rounded-lg">
-                {project.tasks?.length ? "Si hay tareas" :
+                {project.tasks?.length ?
+                    project.tasks.map(task => (
+                        <Task 
+                            key={task._id}
+                            task={task}
+                        />
+                    )):
                 <p className="text-center my-5 p-10">There arent tasks in this Project</p>}
             </div>
 
