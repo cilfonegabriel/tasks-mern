@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 import useProjects from "../hooks/useProjects"
 import ModalFormTask from "../components/ModalFormTask.jsx"
@@ -10,15 +10,11 @@ const Project = () => {
 
     const { getProject, project, loading, handleModalTask  } = useProjects()
 
-    const[modal,setModal] = useState(false)
-
     useEffect (() => {
         getProject(params.id)
     },[])
     
     const { name } = project
-
-    console.log(project)
 
     if (loading) return 'Loading...'
     return (
@@ -60,10 +56,7 @@ const Project = () => {
                 <p className="text-center my-5 p-10">There arent tasks in this Project</p>}
             </div>
 
-            <ModalFormTask 
-                modal = {modal}
-                setModal={setModal}
-            />
+            <ModalFormTask />
         </>
            
     )
