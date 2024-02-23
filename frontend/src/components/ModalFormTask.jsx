@@ -45,8 +45,8 @@ const ModalFormTask = () => {
             })
             return
         }
-        await submitTask({name, description, deliverDate, priority, project: params.id})
-        
+        await submitTask({id, name, description, deliverDate, priority, project: params.id})
+        setId('')
         setName('')
         setDescription('')
         setDeliverDate('')
@@ -195,7 +195,6 @@ const ModalFormTask = () => {
                                             className='bg-sky-600 hover:bg-sky-700 w-full p-3 text-sm text-white uppercase font-bold cursor-pointer transition-colors rounded'
                                             value= {id ? 'Save Changes' : "Create Task"}
                                         />
-
                                     </form>
 
                                 </div>
