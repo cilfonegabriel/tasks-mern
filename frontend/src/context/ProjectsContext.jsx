@@ -197,7 +197,8 @@ const ProjectsProvider = ({children}) => {
     }
 
     const handleModalEditTask = task => {
-        console.log(task)
+        setTask(task)
+        setModalFormTask(true)
     }
 
     return(
@@ -214,7 +215,8 @@ const ProjectsProvider = ({children}) => {
                 modalFormTask,
                 handleModalTask,
                 submitTask,
-                handleModalEditTask
+                handleModalEditTask,
+                task
             }}
         >{children}
         </ProjectsContext.Provider>
