@@ -11,6 +11,7 @@ const ProjectsProvider = ({children}) => {
     const [project, setProject] = useState({});
     const [loading, setLoading] = useState(false);
     const [modalFormTask, setModalFormTask] = useState(false);
+    const[task, setTask] = useState({});
 
 
     const navigate = useNavigate();
@@ -168,9 +169,44 @@ const ProjectsProvider = ({children}) => {
 
     const handleModalTask = () => {
         setModalFormTask(!modalFormTask);
+        setTask({})
     }
 
     const submitTask = async task => {
+
+        if(task?.id) {
+           await editTask(task)
+        } else{
+            await createTask(task)
+        }
+
+        const createTask =async task => {
+            try {
+                const token = localStorage.getItem('token');
+                if(!token) return
+    
+                const config = {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization : `Bearer ${token}`,
+                    }
+                }
+    
+                const { data } = await customerAxios.post('/tasks', task, config);
+    
+                //Add the task to the state
+                const updatedProject = { ...project }
+                updatedProject.tasks = [...project.tasks, data]
+                setProject(updatedProject)
+                setAlert({})
+                setModalFormTask(false)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+    }
+
+    const editTask = async task => {
         try {
             const token = localStorage.getItem('token');
             if(!token) return
@@ -182,17 +218,21 @@ const ProjectsProvider = ({children}) => {
                 }
             }
 
-            const { data } = await customerAxios.post('/tasks', task, config);
+            const { data } = await customerAxios.put(`/tasks/${task.id}`, task, config)
 
-            //Add the task to the state
-            const updatedProject = { ...project }
-            updatedProject.tasks = [...project.tasks, data]
-            setProject(updatedProject)
+            const projectUpdate = {...project}
+            projectUpdate.tasks = projectUpdate.tasks.map(taskState => taskState._id === data._id ? data : taskState)
+            setProject(projectUpdate)
             setAlert({})
             setModalFormTask(false)
         } catch (error) {
             console.error(error)
         }
+    }
+
+    const handleModalEditTask = task => {
+        setTask(task)
+        setModalFormTask(true)
     }
 
     return(
@@ -208,7 +248,9 @@ const ProjectsProvider = ({children}) => {
                 deleteProject,
                 modalFormTask,
                 handleModalTask,
-                submitTask
+                submitTask,
+                handleModalEditTask,
+                task
             }}
         >{children}
         </ProjectsContext.Provider>
