@@ -219,6 +219,10 @@ const ProjectsProvider = ({children}) => {
             }
 
             const { data } = await customerAxios.put(`/tasks/${task.id}`, task, config)
+
+            const projectUpdate = {...project}
+            projectUpdate.tasks = projectUpdate.tasks.map(taskState => taskState._id === data._id ? data : taskState)
+            setProject(projectUpdate)
             setAlert({})
             setModalFormTask(false)
         } catch (error) {
