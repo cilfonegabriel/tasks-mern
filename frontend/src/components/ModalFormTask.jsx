@@ -9,7 +9,7 @@ const PRIORITY = ["Low", "Mid", "High"];
 
 const ModalFormTask = () => {
 
-    const{ modalFormTask, handleModalTask, showAlert, alert, submitTask } = useProjects();
+    const{ modalFormTask, handleModalTask, showAlert, alert, submitTask, task } = useProjects();
 
     const [name, setName] =useState('')
     const [description, setDescription] =useState('')
@@ -18,6 +18,9 @@ const ModalFormTask = () => {
 
     const params = useParams()
 
+    useEffect(() => {
+        console.log(task)
+    }, [task])
 
     const handleSubmit = async e => {
         e.preventDefault();
