@@ -4,12 +4,13 @@ import useProjects from "../hooks/useProjects"
 import ModalFormTask from "../components/ModalFormTask.jsx"
 import ModalDeleteTask from "../components/ModalDeleteTask.jsx"
 import Task from "../components/Task.jsx"
+import Alert from "../components/Alert.jsx"
 
 const Project = () => {
 
     const params = useParams()
 
-    const { getProject, project, loading, handleModalTask  } = useProjects()
+    const { getProject, project, loading, handleModalTask, alert  } = useProjects()
 
     useEffect (() => {
         getProject(params.id)
@@ -18,6 +19,8 @@ const Project = () => {
     const { name } = project
 
     if (loading) return 'Loading...'
+
+    const {msg} = alert
     return (
         <>
             <div className="flex justify-between">
@@ -45,6 +48,13 @@ const Project = () => {
             New task</button>     
 
             <p className="font-bold text-xl mt-10">Tasks of the Project</p>
+
+            <div className="flex justify-center">
+                <div className="md:w1/3 lg:w-1/4">
+                    {msg && <Alert alert={alert} />}
+                </div>
+            </div>
+
 
             <div className="bg-white shadow mt-10 rounded-lg">
                 {project.tasks?.length ?

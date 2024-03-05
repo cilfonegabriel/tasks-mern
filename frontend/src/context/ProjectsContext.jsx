@@ -242,7 +242,32 @@ const ProjectsProvider = ({children}) => {
     }
 
     const deleteTask = async () => {
-        console.log(task)
+        try {
+            const token = localStorage.getItem('token');
+            if(!token) return
+
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization : `Bearer ${token}`,
+                }
+            }
+
+            const { data } = await customerAxios.delete(`/tasks/${task._id}`, config)
+            setAlert({
+                msg: data.msg,
+                error: false,
+            })
+
+            const projectUpdate = {...project}
+            projectUpdate.tasks = projectUpdate.tasks.filter(taskState => taskState._id !== task._id)
+
+            setProject(projectUpdate)
+            setModalDeleteTask(false)
+            setTask({})
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return(
