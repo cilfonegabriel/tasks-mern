@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 import useProjects from "../hooks/useProjects"
 import ModalFormTask from "../components/ModalFormTask.jsx"
+import ModalDeleteTask from "../components/ModalDeleteTask.jsx"
 import Task from "../components/Task.jsx"
 
 const Project = () => {
@@ -57,6 +58,7 @@ const Project = () => {
             </div>
 
             <ModalFormTask />
+            <ModalDeleteTask />
         </>
            
     )
