@@ -241,6 +241,10 @@ const ProjectsProvider = ({children}) => {
         setModalDeleteTask(!modalDeleteTask)
     }
 
+    const deleteTask = async () => {
+        console.log(task)
+    }
+
     return(
         <ProjectsContext.Provider
             value={{
@@ -259,6 +263,7 @@ const ProjectsProvider = ({children}) => {
                 task,
                 modalDeleteTask,
                 handleModalDeleteTask,
+                deleteTask,
             }}
         >{children}
         </ProjectsContext.Provider>
