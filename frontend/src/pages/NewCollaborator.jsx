@@ -1,8 +1,14 @@
+import FormCollaborator from "../components/FormCollaborator"
+
 const NewCollaborator = () => {
   return (
-    <div>
-      Agregar un nuevo colaborador
-    </div>
+    <>
+      <h1 className="text-4xl font-black">Add Collaborator</h1>
+
+      <div className="mt-10 flex justify-center">
+        <FormCollaborator />
+      </div>
+    </>
   )
 }
 
