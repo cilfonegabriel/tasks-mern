@@ -50,7 +50,7 @@ const Project = () => {
             <p className="font-bold text-xl mt-10">Tasks of the Project</p>
 
             <div className="flex justify-center">
-                <div className="md:w1/3 lg:w-1/4">
+                <div className="w-full md:w1/3 lg:w-1/4">
                     {msg && <Alert alert={alert} />}
                 </div>
             </div>

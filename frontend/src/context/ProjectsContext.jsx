@@ -265,6 +265,9 @@ const ProjectsProvider = ({children}) => {
             setProject(projectUpdate)
             setModalDeleteTask(false)
             setTask({})
+            setTimeout(() => {
+                setAlert({});
+            }, 3000);
         } catch (error) {
             console.log(error)
         }
