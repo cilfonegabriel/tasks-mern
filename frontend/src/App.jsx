@@ -33,6 +33,7 @@ function App() {
             <Route path="/projects" element={<ProtectedRoute />} >
               <Route index element={<Projects />} />
               <Route path="create-project" element={<NewProject />} />
+              <Route path="new-collaborator/:id" element={<NewCollaborator />} />
               <Route path=":id" element={<Project />} />
               <Route path="edit/:id" element={<EditProject />} />
             </Route>
