@@ -324,6 +324,7 @@ const ProjectsProvider = ({children}) => {
                 handleModalDeleteTask,
                 deleteTask,
                 submitCollaborator,
+                collaborator,
             }}
         >{children}
         </ProjectsContext.Provider>
