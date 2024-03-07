@@ -137,7 +137,7 @@ const addCollaborator = async (req, res) => {
     }
 
     if(project.creator.toString() === user._id.toString()) {
-        const error = new Error("User not found");
+        const error = new Error("The Project Administrator cannot be a collaborator.");
         return res.status(404).json({ msg: error.message });
     }
 };
