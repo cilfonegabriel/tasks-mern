@@ -135,6 +135,11 @@ const addCollaborator = async (req, res) => {
         const error = new Error("User not found");
         return res.status(404).json({ msg: error.message });
     }
+
+    if(project.creator.toString() === user._id.toString()) {
+        const error = new Error("User not found");
+        return res.status(404).json({ msg: error.message });
+    }
 };
 
 const deleteCollaborator = async (req, res) => {
