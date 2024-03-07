@@ -140,10 +140,14 @@ const addCollaborator = async (req, res) => {
         const error = new Error("The Project Administrator cannot be a collaborator.");
         return res.status(404).json({ msg: error.message });
     }
-    if(project.addCollaborator.includes(user._id)) {
+    if(project.collaborators.includes(user._id)) {
         const error = new Error("The user already belongs to the project.");
         return res.status(404).json({ msg: error.message });
     }
+
+    project.collaborators.push(user._id);
+    await project.save();
+    res.json({ msg:"Collaborator successfully added"});
 };
 
 const deleteCollaborator = async (req, res) => {
