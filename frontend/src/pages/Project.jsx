@@ -2,13 +2,15 @@ import { useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 import useProjects from "../hooks/useProjects"
 import ModalFormTask from "../components/ModalFormTask.jsx"
+import ModalDeleteTask from "../components/ModalDeleteTask.jsx"
 import Task from "../components/Task.jsx"
+import Alert from "../components/Alert.jsx"
 
 const Project = () => {
 
     const params = useParams()
 
-    const { getProject, project, loading, handleModalTask  } = useProjects()
+    const { getProject, project, loading, handleModalTask, alert  } = useProjects()
 
     useEffect (() => {
         getProject(params.id)
@@ -17,6 +19,8 @@ const Project = () => {
     const { name } = project
 
     if (loading) return 'Loading...'
+
+    const {msg} = alert
     return (
         <>
             <div className="flex justify-between">
@@ -45,6 +49,13 @@ const Project = () => {
 
             <p className="font-bold text-xl mt-10">Tasks of the Project</p>
 
+            <div className="flex justify-center">
+                <div className="w-full md:w1/3 lg:w-1/4">
+                    {msg && <Alert alert={alert} />}
+                </div>
+            </div>
+
+
             <div className="bg-white shadow mt-10 rounded-lg">
                 {project.tasks?.length ?
                     project.tasks.map(task => (
@@ -56,7 +67,19 @@ const Project = () => {
                 <p className="text-center my-5 p-10">There arent tasks in this Project</p>}
             </div>
 
+            <div className="flex items-center justify-between mt-10">
+                <p className="font-bold text-xl">Collaborators</p>
+                <Link
+                    to={`/projects/new-collaborator/${project._id}`}
+                    className="text-gray-400 hover:text-black uppercase font-bold"
+                >Add</Link>
+            </div>
+
+            
+
+
             <ModalFormTask />
+            <ModalDeleteTask />
         </>
            
     )
