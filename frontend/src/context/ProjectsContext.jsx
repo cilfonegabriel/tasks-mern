@@ -132,7 +132,10 @@ const ProjectsProvider = ({children}) => {
             const { data } = await customerAxios(`/projects/${id}`, config)
             setProject(data)
         } catch (error) {
-            console.log(error)
+            setAlert({
+                msg: error.response.message,
+                error: true,
+            })
         } finally {
             setLoading(false)
         }
@@ -305,7 +308,23 @@ const ProjectsProvider = ({children}) => {
     }
 
     const addCollaborator = async email => {
-        console.log(email);
+        try {
+            const token = localStorage.getItem('token');
+            if(!token) return
+
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization : `Bearer ${token}`,
+                }
+            }
+
+            const { data } = await customerAxios.post(`/projects/collaborators/${project._id}`, email, config)
+            console.log(data)
+
+        } catch (error) {
+            console.log(error.response);
+        }
     }
 
     return(

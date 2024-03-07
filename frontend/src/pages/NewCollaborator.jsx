@@ -2,17 +2,19 @@ import FormCollaborator from "../components/FormCollaborator"
 import { useEffect } from "react"
 import useProjects from "../hooks/useProjects"
 import { useParams } from "react-router-dom"
+import Alert from "../components/Alert"
 
 const NewCollaborator = () => {
 
-    const { getProject, project, collaborator, loading, addCollaborator } = useProjects()
+    const { getProject, project, collaborator, loading, addCollaborator, alert } = useProjects()
     const params = useParams()
 
     useEffect(() => {
         getProject(params.id)
     },[])
 
-    if (loading) return loading
+
+    if(!project?._id) return <Alert alert={alert} />
   return (
     <>
       <h1 className="text-4xl font-black">Add Collaborator to the project {project.name}</h1>
