@@ -109,7 +109,32 @@ const searchCollaborator = async (req, res) => {
 };
 
 const addCollaborator = async (req, res) => {
-    
+    const { id } = req.params;
+ 
+    if (id.length !== 24) {
+        const error = new Error('ID inválido');
+        return res.status(400).json({ msg: error.message });
+    }
+    const project = await Project.findById(id);
+
+    if(!project) {
+        const error = new Error('Project not found');
+        return res.status(404).json({ msg: error.message });
+    }
+
+    if(project.creator.toString() !== req.user._id.toString()) {
+        const error = new Error('Not valid action');
+        return res.status(404).json({ msg: error.message });
+    }
+
+    const {email} = req.body;
+
+    const user = await User.findOne({email}).select("-confirm -createdAt -password -token -updatedAt -__v")
+
+    if(!user) {
+        const error = new Error("User not found");
+        return res.status(404).json({ msg: error.message });
+    }
 };
 
 const deleteCollaborator = async (req, res) => {
