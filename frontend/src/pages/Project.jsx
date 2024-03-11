@@ -6,6 +6,7 @@ import ModalDeleteTask from "../components/ModalDeleteTask.jsx"
 import Task from "../components/Task.jsx"
 import Alert from "../components/Alert.jsx"
 import Collaborator from "../components/Collaborator.jsx"
+import ModalDeleteCollaborator from "../components/ModalDeleteCollaborator.jsx"
 
 const Project = () => {
 
@@ -18,8 +19,6 @@ const Project = () => {
     },[])
     
     const { name } = project
-
-    console.log(project)
 
     if (loading) return 'Loading...'
 
@@ -93,6 +92,7 @@ const Project = () => {
 
             <ModalFormTask />
             <ModalDeleteTask />
+            <ModalDeleteCollaborator />
         </>
            
     )
