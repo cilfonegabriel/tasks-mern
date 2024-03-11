@@ -6,15 +6,15 @@ const ProjectsContext = createContext()
 
 const ProjectsProvider = ({children}) => {
 
-    const[projects, setProjects] = useState([]);
-    const[alert, setAlert] = useState({});
+    const [projects, setProjects] = useState([]);
+    const [alert, setAlert] = useState({});
     const [project, setProject] = useState({});
     const [loading, setLoading] = useState(false);
     const [modalFormTask, setModalFormTask] = useState(false);
-    const[task, setTask] = useState({});
+    const [task, setTask] = useState({});
     const [modalDeleteTask, setModalDeleteTask] = useState(false);
     const [collaborator, setCollaborator] = useState({});
-
+    const [modalDeleteCollaborator, setModalDeleteCollaborator] = useState(false);
 
     const navigate = useNavigate();
 
@@ -337,6 +337,15 @@ const ProjectsProvider = ({children}) => {
         }
     }
 
+    const handleModalDeleteCollaborator = (collaborator) => {
+        setModalDeleteCollaborator(!modalDeleteCollaborator)
+        setCollaborator(collaborator)
+    }
+
+    const deleteCollaborator = () => {
+        console.log(collaborator)
+    }
+
     return(
         <ProjectsContext.Provider
             value={{
@@ -359,6 +368,9 @@ const ProjectsProvider = ({children}) => {
                 submitCollaborator,
                 collaborator,
                 addCollaborator,
+                handleModalDeleteCollaborator,
+                modalDeleteCollaborator,
+                deleteCollaborator
             }}
         >{children}
         </ProjectsContext.Provider>
