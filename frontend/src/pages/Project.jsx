@@ -82,7 +82,7 @@ const Project = () => {
                 {project.collaborators?.length ?
                     project.collaborators?.map(collaborator => (
                         <Collaborator
-                            key={Collaborator._id}
+                            key={collaborator._id}
                             collaborator={collaborator}
                         />
                     )):
