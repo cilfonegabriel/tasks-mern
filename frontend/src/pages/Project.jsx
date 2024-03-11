@@ -18,6 +18,8 @@ const Project = () => {
     
     const { name } = project
 
+    console.log(project)
+
     if (loading) return 'Loading...'
 
     const {msg} = alert
