@@ -22,7 +22,7 @@ const newProject = async (req, res) => {
 const getProject = async (req, res) => {
     const { id } = req.params;
 
-    const project = await Project.findById(id).populate('tasks');
+    const project = await Project.findById(id).populate('tasks').populate("collaborators", "name email")
     
     if (!project) {
         const error = new Error("Project not found");
@@ -151,7 +151,27 @@ const addCollaborator = async (req, res) => {
 };
 
 const deleteCollaborator = async (req, res) => {
-    
+    const { id } = req.params;
+ 
+    if (id.length !== 24) {
+        const error = new Error('ID inválido');
+        return res.status(400).json({ msg: error.message });
+    }
+    const project = await Project.findById(id);
+
+    if(!project) {
+        const error = new Error('Project not found');
+        return res.status(404).json({ msg: error.message });
+    }
+
+    if(project.creator.toString() !== req.user._id.toString()) {
+        const error = new Error('Not valid action');
+        return res.status(404).json({ msg: error.message });
+    }
+
+    project.collaborators.pull(req.body.id);
+    await project.save();
+    res.json({ msg:"Collaborator successfully Deleted"});
 };
 
 export {

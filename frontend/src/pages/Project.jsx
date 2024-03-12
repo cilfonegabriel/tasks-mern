@@ -5,6 +5,8 @@ import ModalFormTask from "../components/ModalFormTask.jsx"
 import ModalDeleteTask from "../components/ModalDeleteTask.jsx"
 import Task from "../components/Task.jsx"
 import Alert from "../components/Alert.jsx"
+import Collaborator from "../components/Collaborator.jsx"
+import ModalDeleteCollaborator from "../components/ModalDeleteCollaborator.jsx"
 
 const Project = () => {
 
@@ -75,11 +77,22 @@ const Project = () => {
                 >Add</Link>
             </div>
 
+            <div className="bg-white shadow mt-10 rounded-lg">
+                {project.collaborators?.length ?
+                    project.collaborators?.map(collaborator => (
+                        <Collaborator
+                            key={collaborator._id}
+                            collaborator={collaborator}
+                        />
+                    )):
+                <p className="text-center my-5 p-10">There arent Collaborators in this Project</p>}
+            </div>
             
 
 
             <ModalFormTask />
             <ModalDeleteTask />
+            <ModalDeleteCollaborator />
         </>
            
     )

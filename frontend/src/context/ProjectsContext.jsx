@@ -6,15 +6,15 @@ const ProjectsContext = createContext()
 
 const ProjectsProvider = ({children}) => {
 
-    const[projects, setProjects] = useState([]);
-    const[alert, setAlert] = useState({});
+    const [projects, setProjects] = useState([]);
+    const [alert, setAlert] = useState({});
     const [project, setProject] = useState({});
     const [loading, setLoading] = useState(false);
     const [modalFormTask, setModalFormTask] = useState(false);
-    const[task, setTask] = useState({});
+    const [task, setTask] = useState({});
     const [modalDeleteTask, setModalDeleteTask] = useState(false);
     const [collaborator, setCollaborator] = useState({});
-
+    const [modalDeleteCollaborator, setModalDeleteCollaborator] = useState(false);
 
     const navigate = useNavigate();
 
@@ -184,32 +184,33 @@ const ProjectsProvider = ({children}) => {
         } else{
             await createTask(task)
         }
-
-        const createTask =async task => {
-            try {
-                const token = localStorage.getItem('token');
-                if(!token) return
+    }
     
-                const config = {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization : `Bearer ${token}`,
-                    }
+    const createTask = async task => {
+        try {
+            const token = localStorage.getItem('token');
+            if(!token) return
+    
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization : `Bearer ${token}`,
                 }
-    
-                const { data } = await customerAxios.post('/tasks', task, config);
-    
-                //Add the task to the state
-                const updatedProject = { ...project }
-                updatedProject.tasks = [...project.tasks, data]
-                setProject(updatedProject)
-                setAlert({})
-                setModalFormTask(false)
-            } catch (error) {
-                console.error(error)
             }
+    
+            const { data } = await customerAxios.post('/tasks', task, config);
+    
+            //Add the task to the state
+            const updatedProject = { ...project }
+            updatedProject.tasks = [...project.tasks, data]
+            setProject(updatedProject)
+            setAlert({})
+            setModalFormTask(false)
+        } catch (error) {
+            console.error(error)
         }
     }
+    
 
     const editTask = async task => {
         try {
@@ -320,19 +321,58 @@ const ProjectsProvider = ({children}) => {
             }
 
             const { data } = await customerAxios.post(`/projects/collaborators/${project._id}`, email, config)
+
             setAlert({
                 msg: data.msg,
                 error: false
             })
 
             setCollaborator({})
-            setAlert({})
 
         } catch (error) {
             setAlert({
                 msg: error.response.data.msg,
                 error: true,
             })
+        }
+    }
+
+    const handleModalDeleteCollaborator = (collaborator) => {
+        setModalDeleteCollaborator(!modalDeleteCollaborator)
+        setCollaborator(collaborator)
+    }
+
+    const deleteCollaborator = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if(!token) return
+
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization : `Bearer ${token}`,
+                }
+            }
+
+            const { data } = await customerAxios.post(`/projects/delete-collaborator/${project._id}`, {id: collaborator._id}, config)
+
+            const projectUpdate={...project}
+
+            projectUpdate.collaborators = projectUpdate.collaborators.filter(collaboratorState => collaboratorState._id !== collaborator._id)
+
+            setProject(projectUpdate)
+
+            setAlert({
+                msg:data.msg,
+                error: false,
+            })
+
+            setCollaborator({})
+            setModalDeleteCollaborator(false)
+
+
+        } catch (error) {
+            console.error(error.response);
         }
     }
 
@@ -358,6 +398,9 @@ const ProjectsProvider = ({children}) => {
                 submitCollaborator,
                 collaborator,
                 addCollaborator,
+                handleModalDeleteCollaborator,
+                modalDeleteCollaborator,
+                deleteCollaborator
             }}
         >{children}
         </ProjectsContext.Provider>
