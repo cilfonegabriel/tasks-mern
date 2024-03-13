@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 import useProjects from "../hooks/useProjects"
+import useAdmin from "../hooks/useAdmin.jsx"
 import ModalFormTask from "../components/ModalFormTask.jsx"
 import ModalDeleteTask from "../components/ModalDeleteTask.jsx"
 import Task from "../components/Task.jsx"
@@ -23,6 +24,9 @@ const Project = () => {
     if (loading) return 'Loading...'
 
     const {msg} = alert
+
+    console.log(project)
+    console.log(auth)
 
     return (
         msg && alert.error ? <Alert alert={alert} /> : (
