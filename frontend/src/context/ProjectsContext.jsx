@@ -396,9 +396,15 @@ const ProjectsProvider = ({children}) => {
                 }
             }
 
-            const { data } = customerAxios.post(`/tasks/state/${id}`, {}, config)
-            console.log(data)
-        } catch (error) {
+            const { data } = await customerAxios.post(`/tasks/state/${id}`, {}, config)
+            const projectUpdate = {...project}
+            projectUpdate.tasks = projectUpdate.tasks.map(taskState => taskState._id === data._id ? data : taskState)
+
+            setProject(projectUpdate)
+            setTask({})
+            setAlert({})
+            
+       } catch (error) {
             console.log(error.response)
         }
     }
