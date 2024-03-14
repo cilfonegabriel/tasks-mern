@@ -384,6 +384,10 @@ const ProjectsProvider = ({children}) => {
         }
     }
 
+    const completeTask = async id => {
+        console.log(id)
+    }
+
     return(
         <ProjectsContext.Provider
             value={{
@@ -408,7 +412,8 @@ const ProjectsProvider = ({children}) => {
                 addCollaborator,
                 handleModalDeleteCollaborator,
                 modalDeleteCollaborator,
-                deleteCollaborator
+                deleteCollaborator,
+                completeTask,
             }}
         >{children}
         </ProjectsContext.Provider>
