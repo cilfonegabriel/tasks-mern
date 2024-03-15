@@ -131,11 +131,17 @@ const ProjectsProvider = ({children}) => {
 
             const { data } = await customerAxios(`/projects/${id}`, config)
             setProject(data)
+            setAlert({})
         } catch (error) {
+            navigate('/projects')
             setAlert({
                 msg: error.response.message,
                 error: true,
             })
+
+            setTimeout (() => {
+                setAlert({});
+            }, 3000)
         } finally {
             setLoading(false)
         }
@@ -329,6 +335,10 @@ const ProjectsProvider = ({children}) => {
 
             setCollaborator({})
 
+            setTimeout(() => {
+                setAlert({})
+            }, 3000)
+
         } catch (error) {
             setAlert({
                 msg: error.response.data.msg,
@@ -370,9 +380,37 @@ const ProjectsProvider = ({children}) => {
             setCollaborator({})
             setModalDeleteCollaborator(false)
 
+            setTimeout(() => {
+                setAlert({})
+            }, 3000)
 
         } catch (error) {
             console.error(error.response);
+        }
+    }
+
+    const completeTask = async id => {
+        try {
+            const token = localStorage.getItem('token');
+            if(!token) return
+
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization : `Bearer ${token}`,
+                }
+            }
+
+            const { data } = await customerAxios.post(`/tasks/state/${id}`, {}, config)
+            const projectUpdate = {...project}
+            projectUpdate.tasks = projectUpdate.tasks.map(taskState => taskState._id === data._id ? data : taskState)
+
+            setProject(projectUpdate)
+            setTask({})
+            setAlert({})
+
+       } catch (error) {
+            console.log(error.response)
         }
     }
 
@@ -400,7 +438,8 @@ const ProjectsProvider = ({children}) => {
                 addCollaborator,
                 handleModalDeleteCollaborator,
                 modalDeleteCollaborator,
-                deleteCollaborator
+                deleteCollaborator,
+                completeTask,
             }}
         >{children}
         </ProjectsContext.Provider>

@@ -87,7 +87,11 @@ const deleteTask = async (req, res) => {
     }
 
     try {
-        await task.deleteOne()
+        const project = await Project.findById(task.project)
+        project.tasks.pull(task._id);
+        
+        await Promise.allSettled([await project.save(), await task.deleteOne()]);
+
         res.json({ msg: "The task was deleted" });
     } catch (error) {
         console.log(error);
@@ -95,7 +99,25 @@ const deleteTask = async (req, res) => {
 }
 
 const changeStatus = async (req, res) => {
-    
+    const { id } = req.params;
+
+    const task = await Task.findById(id).populate("project");
+
+    if(!task) {
+        const error = new Error("Task not found");
+        return res.status(404).json({ msg: error.message });
+    }
+
+    if(task.project.creator.toString() !== req.user._id.toString()
+    && !task.project.collaborators.some((collaborator) => collaborator._id
+        .toString() === req.user._id.toString()))
+    {
+        const error = new Error("Invalid action.");
+        return res.status(403).json({ msg: error.message });
+    }
+    task.state = !task.state;
+    await task.save();
+    res.json(task);
 }
 
 export {

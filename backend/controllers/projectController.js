@@ -2,8 +2,13 @@ import Project from "../models/Project.js";
 import User from "../models/User.js";
 
 const getProjects = async (req, res) => {
-    const projects = await Project.find().where('creator').equals(req.user).select("-tasks");
+    const projects = await Project.find({
+        $or : [
+            {'collaborators': {$in: [req.user]}},
+            {'creator': {$in: [req.user]}},
 
+        ],
+    }).select("-tasks");
     res.json(projects);
 };
 
@@ -29,13 +34,13 @@ const getProject = async (req, res) => {
         return res.status(404).json({ msg: error.message });
     }
 
-    if(project.creator.toString() !== req.user._id.toString()) {
+    if(
+        project.creator.toString() !== req.user._id.toString() && 
+        !project.collaborators.some(
+            (collaborator) => collaborator._id.toString() === req.user._id.toString())) {
         const error = new Error("Invalid action");
         return res.status(404).json({ msg: error.message });
     }
-
-
-    
     res.json (
         project,
     );
