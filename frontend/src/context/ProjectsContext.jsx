@@ -133,10 +133,15 @@ const ProjectsProvider = ({children}) => {
             setProject(data)
             setAlert({})
         } catch (error) {
+            navigate('/projects')
             setAlert({
                 msg: error.response.message,
                 error: true,
             })
+
+            setTimeout (() => {
+                setAlert({});
+            }, 3000)
         } finally {
             setLoading(false)
         }
@@ -403,7 +408,7 @@ const ProjectsProvider = ({children}) => {
             setProject(projectUpdate)
             setTask({})
             setAlert({})
-            
+
        } catch (error) {
             console.log(error.response)
         }
